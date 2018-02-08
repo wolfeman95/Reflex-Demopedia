@@ -1,0 +1,111 @@
+#: import main demoplayer
+#: import ListAdapter kivy.adapters.listadapter.ListAdapter
+#: import ListItemButton kivy.uix.listview.ListItemButton
+#: import Factory kivy.factory.Factory
+
+<SettingsPopup>:
+    title: "Settings"
+    size_hint: .75, .25
+    auto_dismiss: True
+    reflex_path_text: settings_reflex
+    demo_path_text: settings_demos
+    GridLayout:
+        cols: 2
+        Label:
+            text: "Reflex Path"
+
+        TextInput:
+            size_hint: 2.5, 1
+            multiline: False
+            text: root.check_reflex()
+            id: settings_reflex
+            write_tab: False
+        Label:
+            text: "Demos Path"
+        TextInput:
+            multiline: False
+            text: root.check_demos()
+            id: settings_demos
+            write_tab: False
+        Button:
+            text: 'Done'
+            on_release: root.dismiss()
+        Button:
+            text: "Update"
+            on_release: root.update_settings()
+
+
+<DemoFinder>:
+    orientation: "vertical"
+    demo_list: demo_list_view
+    last_path_bot: last_path_bottom
+    padding: 10
+    spacing: 10
+
+    BoxLayout:
+        size_hint_y: None
+        height: "50dp"
+
+
+        #Image:
+        #    source: "reflex.jpeg"
+
+        Label:
+            text: "REFLEX DEMO PLAYER"
+            size_hint: 2, 1
+
+        Button:
+            text: 'Settings'
+            on_release: root.open_popup()
+
+    BoxLayout:
+        size_hint_y: None
+        height: "50dp"
+        Button:
+            text: "Delete"
+            size_hint_x: 15
+            on_press: root.delete_demos()
+        Button:
+            text: "Clear All"
+            size_hint_x: 15
+            on_press: root.clear_demo_list()
+        Button:
+            text: "Populate"
+            size_hint_x: 15
+            on_press: root.populate_demo_list()
+
+
+    BoxLayout:
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: 2, 1
+            ListView:
+                id: demo_list_view
+                size_hint: 1, 1
+                adapter:
+                    ListAdapter(data=sorted([]), selection_mode="multiple", cls=main.DemoListButton)
+            TextInput:
+                id: last_path_bottom
+                text: str(root.last_path_bot)
+                size_hint: 1, 0.08
+
+        GridLayout:
+            cols: 1
+            orientation: "vertical"
+            Button:
+                text: "Play Demo!"
+                background_color: 1, 1, 0, 1
+                size_hint: 1, 0.3
+                on_press: root.play_demo()
+            Widget:
+            Label:
+                text: "v0.1"
+                size_hint: 1, 0.1
+
+
+
+
+
+
+
