@@ -1,0 +1,175 @@
+#: import main demopedia
+#: import ListAdapter kivy.adapters.listadapter.ListAdapter
+#: import ListItemButton kivy.uix.listview.ListItemButton
+#: import TextInput kivy.uix.textinput.TextInput
+#: import CheckBox kivy.uix.checkbox.CheckBox
+
+<SettingsPopup>:
+    title: "Settings"
+    size_hint: .75, .25
+    auto_dismiss: True
+    reflex_path_text: settings_reflex
+    demo_path_text: settings_demos
+    #rep_files: rep_checkbox
+
+
+    GridLayout:
+        cols: 2
+        Label:
+            text: "Reflex Path"
+
+        TextInput:
+            size_hint: 2.5, 1
+            multiline: False
+            text: root.check_reflex()
+            id: settings_reflex
+            write_tab: False
+        Label:
+            text: "Demos Path"
+        TextInput:
+            multiline: False
+            text: root.check_demos()
+            id: settings_demos
+            write_tab: False
+        #Label:
+        #    text: ".rep files only"
+        #CheckBox:
+        #    id: rep_checkbox
+        #    on_active: root.rep_files_only(self, self.active)
+        #    size_hint: 2.5, 1
+        Button:
+            text: 'Done'
+            on_release: root.dismiss()
+        Button:
+            text: "Update"
+            on_release: root.update_settings()
+
+
+<Demopedia>:
+    orientation: "vertical"
+    demo_list: demo_list_view
+    last_path_bot: last_path_bottom
+    textinput: current_description
+    timecode: timestamp
+    padding: 10
+    spacing: 4
+
+    BoxLayout:
+        size_hint_y: None
+        height: "50dp"
+        spacing: 5
+
+        Label:
+            text: "Reflex Demopedia"
+            font_size: "32dp"
+            size_hint: 2, 1
+
+        Button:
+            text: 'Settings'
+            on_release: root.open_popup()
+            font_size: "18dp"
+
+    BoxLayout:
+        size_hint_y: None
+        height: "50dp"
+        spacing: 2
+        Button:
+            text: "Delete"
+            font_size: "18dp"
+            size_hint: 1, 1
+            on_press: root.delete_demos()
+        Button:
+            text: "Clear All"
+            size_hint: 1, 1
+            font_size: "18dp"
+            on_press: root.clear_demo_list()
+        Button:
+            text: "Add Favorite"
+            size_hint: 1, 1
+            on_press: root.add_demo_to_favorites()
+            font_size: "18dp"
+        Button:
+            text: "Populate"
+            size_hint: 1.5, 1
+            font_size: "18dp"
+            on_press: root.populate_demo_list()
+
+
+
+    BoxLayout:
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: 2, 1
+            spacing: 0
+            ListView:
+                id: demo_list_view
+                size_hint: 1, 1
+            TextInput:
+                id: last_path_bottom
+                multiline: False
+                size_hint: 1, 0.08
+
+        GridLayout:
+            padding: 2, 0, 0, 0
+            cols: 1
+            orientation: "vertical"
+            Button:
+                text: "Favorites"
+                on_press: root.populate_favorites()
+                size_hint: 1, 0.22
+                font_size: "18dp"
+            Label:
+                text: "Description"
+                font_size: "17dp"
+                size_hint: 1, 0.12
+
+            TextInput:
+                id: current_description
+                multiline: True
+                size_hint: 1, 0.5
+
+            Label:
+                text: "Timestamp"
+                size_hint: 1, 0.1
+                font_size: "17dp"
+
+            TextInput:
+                id: timestamp
+                multiline: False
+                #text: ""
+                size_hint: 1, 0.12
+            Widget:
+                size_hint: 1, 0.03
+            Button:
+                text: "Save Details"
+                font_size: "18dp"
+                size_hint: 1, .2
+                on_press: root.save_description()
+            Widget:
+                size_hint: 1, 0.02
+            Button:
+                text: "Play Demo"
+                size_hint: 1, .6
+                font_size: "30dp"
+                background_normal: ""
+                background_color: [255, 0, 0, .4] if self.state == 'normal' else [255, 0, 0, .3]
+                on_press: root.play_demo()
+
+            #Widget:
+            #    size_hint: 1, 0.06
+            #Button:
+            #    text: "Play from Timecode"
+            #    size_hint_y: .4
+            #    on_press: root.play_timecode()
+
+
+
+
+
+
+
+
+
+
+
