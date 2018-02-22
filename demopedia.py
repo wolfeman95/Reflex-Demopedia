@@ -1,4 +1,4 @@
-"""v0.1 Licenced under MIT License"""
+"""v0.2 Licenced under MIT License"""
 from kivy.config import Config
 Config.set('input', 'mouse', 'mouse,multitouch_on_demand')
 
@@ -54,7 +54,6 @@ class Demopedia(BoxLayout):
     last_subfolder = ""
     list_adapter = ListAdapter(data=sorted([]), selection_mode='single',
                                allow_empty_selection=True, cls=ListItemButton)
-
 
     def populate_demo_list(self):
         self.demo_list.adapter = self.list_adapter
