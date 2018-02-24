@@ -3,6 +3,7 @@
 #: import ListItemButton kivy.uix.listview.ListItemButton
 #: import TextInput kivy.uix.textinput.TextInput
 #: import CheckBox kivy.uix.checkbox.CheckBox
+#: import ToggleButton kivy.uix.togglebutton.ToggleButton
 
 <SettingsPopup>:
     title: "Settings"
@@ -51,6 +52,7 @@
     last_path_bot: last_path_bottom
     textinput: current_description
     timecode: timestamp
+    fave_button: fave
     padding: 10
     spacing: 4
 
@@ -68,6 +70,7 @@
             text: 'Settings'
             on_release: root.open_popup()
             font_size: "18dp"
+            background_color: [1, 1, 1, 1] if self.state == 'normal' else [255, 0, 0, .4]
 
     BoxLayout:
         size_hint_y: None
@@ -78,21 +81,28 @@
             font_size: "18dp"
             size_hint: 1, 1
             on_press: root.delete_demos()
+            background_color: [1, 1, 1, 1] if self.state == 'normal' else [255, 0, 0, .4]
+
         Button:
             text: "Clear All"
             size_hint: 1, 1
             font_size: "18dp"
             on_press: root.clear_demo_list()
+            background_color: [1, 1, 1, 1] if self.state == 'normal' else [255, 0, 0, .4]
+
         Button:
             text: "Add Favorite"
             size_hint: 1, 1
             on_press: root.add_demo_to_favorites()
             font_size: "18dp"
+            background_color: [1, 1, 1, 1] if self.state == 'normal' else [255, 0, 0, .4]
+
         Button:
             text: "Populate"
             size_hint: 1.5, 1
             font_size: "18dp"
             on_press: root.populate_demo_list()
+            background_color: [1, 1, 1, 1] if self.state == 'normal' else [255, 0, 0, .4]
 
 
 
@@ -114,11 +124,14 @@
             padding: 2, 0, 0, 0
             cols: 1
             orientation: "vertical"
-            Button:
+            ToggleButton:
                 text: "Favorites"
+                id: fave
                 on_press: root.populate_favorites()
                 size_hint: 1, 0.22
                 font_size: "18dp"
+                background_color: [1, 1, 1, 1] if self.state == 'normal' else [255, 0, 0, .4]
+
             Label:
                 text: "Description"
                 font_size: "17dp"
@@ -146,6 +159,8 @@
                 font_size: "18dp"
                 size_hint: 1, .2
                 on_press: root.save_description()
+                background_color: [1, 1, 1, 1] if self.state == 'normal' else [255, 0, 0, .4]
+
             Widget:
                 size_hint: 1, 0.02
             Button:
